@@ -1,0 +1,93 @@
+
+
+//
+// Some brainstorming results
+//
+/***
+
+class Material //, or Atmosphere, where Atmosphere is a subclass of Material
+{
+ private:
+   double polarizationAlpha;
+   double indexOfRefraction;
+   double temperature;
+   // double density or pressure or both;
+public:
+  // method ask user for inputing of properties (polariz, temp, pressure?)?
+  void applyGladstoneDaleFormula() 
+  {
+     formula using polarizationAlpha and polarizationAlpha to
+     calculate indexOfRefraction
+  }
+  constructor Material::Material(double indexOfRef) :
+      indexOfRefraction(indexOfRef), 
+      polarization(0.0), temperature(3.3)
+  {}
+  constructor Material::Material(double alpha, double temp) :
+      polarizationAlpha(alpha), temperature(temp)
+  {
+      applyGladstoneDaleFormula();
+  }
+  // an object of this class is a material or atmosphere
+}
+
+class ObservablePlanet
+{
+ private:
+   double angleOfIncidence, angleOfRefraction;
+   bool haveIncidence; // T if have AofI, false if AofR
+ public:
+   askUserInput();  // ???
+}
+
+class Planet
+{
+ private:
+   string name;
+   Material atmosphere; // attribute for atmosphere
+   vector<ObservablePlanet*> observables; // value is the angle of incidence
+ public:
+   Planet::Planet(double alpha, double temp) :
+      atmosphere(alpha, temp)
+   {    }
+   Material& getAtmosphere()
+   { return atmosphere }
+   // other methods: 
+   askUserForObservables(); // loop to enter
+   processObservables(); // loop to process and output
+}
+
+class Wave, possible with subclasses for Light and Sound
+{
+   attributes: frequency or wavelength or period,
+               angle of incidence, angle of refraction
+   methods: 
+      -- user input for one of the angles
+      -- Wave::Wave(wavelength, angleOfincidence)
+      -- applySnellsLaw(Material& m1, Material& m2)
+         - return index of refraction from method?
+   -- an object of this class represents one wave 
+      that we are calculating refraction properties for
+}
+
+int main() 
+{
+   Material space(1.0);
+   double alpha, temperature;
+   std::cout << "Enter alpha and temp for earth:\n";
+   std::cin >> alpha >> temperature;
+   Planet earth(alpha,temperature);
+   while (1) {
+      double angleOfIncidence;
+      std::cout << "Enter angle of incidence:\n";
+      std::cin >> angleOfIndidence;
+      Wave light(1.0,angleOfIncidence);
+      double angleOfRefraction;
+      angleOfRefraction = 
+         light.applySnellsLaw(space,earth.getAtmosphere());
+      std::cout << "Angle of refraction: ";
+      std::cout << angleOfRefraction << "\n";
+  }
+}
+
+***/
