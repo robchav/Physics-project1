@@ -65,11 +65,11 @@ double* nbptr= nullptr;
     cout <<"---We will find theta_b for you----"<<endl
          << "Enter Angle for theta a: "<<endl;
     cin >> r;
-    theta= degtorad(d);
+    *tptr= degtorad(r);
     t_b = asin(na*sin(*tptr)/nb);
     cout << "nb value: " << nb
-         << "pointer: " << *tptr 
-         << "na vales is: "<< na << endl;
+         << " pointer: " << *tptr 
+         << " na vales is: "<< na << endl;
         cout<<"theta_b is: "<< t_b<<endl;
      
    }
@@ -101,4 +101,6 @@ str= thval.snellslaw(ta,tb);
 cout<< str;
 }
 
-
+//copy formulas to compare Different elements: As proof, He has almost same index of refraction 1.025 index of refraction do to the loss of kinetic energy do to cold temps(more than water).
+//poriovng grandstoles Dale formula T is inversly proportional to the index of reftaction and directly proprtional to polarizaston volume and I would argue, Pressure is more omportant
+//than polarization volume.Perhaps the strength of electric field it doesnt impact as much as the nuclear forces. 
