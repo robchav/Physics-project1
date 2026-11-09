@@ -16,6 +16,7 @@ class Ref_3_planets: public BaseClass{
     int theta_diff;
     const double Na;
     const double R;
+    const double per;
     double P;
     double na;
     double nb;

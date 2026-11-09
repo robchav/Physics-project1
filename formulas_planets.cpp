@@ -6,18 +6,19 @@
 #include <cmath>
 #include <iomanip>
 #include "Ref_3_planets.h"
-#include "Baseclass.h"
+#include "BaseClass.h"
 using namespace std;
 
  Ref_3_planets::Ref_3_planets()
-                 :R(8.314462618),Na(6.02214076e23), index_eye(0), index_atmo(0),P(101325), na(1),nb(0),fic_planet{}
-             {
-                 planets= {"Mercury","Venus","Mars", "Jupiter", "Saturn", "Neptune", "Uranus"};    
-             }
+                 :R(8.314462618),Na(6.02214076e23), index_eye(0), index_atmo(0),P(101325), na(1),nb(0),fic_planet,per(8.85418782e-12){}
+           
 //gastondale Formula for index of refraction
 void Ref_3_planets:: setindex_atmo(double& alpha, double& T)
 {
-cout<< "Enter alpha : ";
+
+cout<< "Choose your polarizability volume and Temperature to " << endl
+    << "find index of refraction of gaseous atmosphere" << endl
+    << "Enter alpha : ";
 cin >> alpha;
 cout << "Enter Temperature: ";
 cin >> T;
@@ -25,7 +26,7 @@ cin >> T;
 alpha*=1e-30;
 double* nbptr= nullptr;    
  index_atmo = 
-    ((Na*alpha*P) /(2*R*T)) + 1; }
+    ((Na*alpha*P) /(2*per*R*T)) + 1; }
 //get index of refraction
  double Ref_3_planets::getindex_atmo() const{
     double nb = index_atmo;
@@ -86,6 +87,7 @@ double pol = 0.0;
 double t =0.0;    
 double ta=0;
 double tb=0;
+
 //Ref_3_planets n_b;
 Ref_3_planets thval;
 

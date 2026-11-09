@@ -1,6 +1,6 @@
 #include <vector>
 #include "Ref_3_planets.h"
-#include "Baseclass.h"
+#include "BaseClass.h"
 
 BaseClass::BaseClass():Pi(3.14159265358979323846) {}
 
@@ -22,3 +22,5 @@ void BaseClass::runAllCalculations() { //memeber function runs for loop from ptr
             ptr->lightitems(); //ptr points to function in child class with virtual
         }
     }
+
+    //https://www.sciencedirect.com/science/article/abs/pii/S0010218019305759   for refractive index
