@@ -7,10 +7,12 @@
 #include <iomanip>
 #include "Ref_3_planets.h"
 #include "BaseClass.h"
+#include <utility>
+
 using namespace std;
 
  Ref_3_planets::Ref_3_planets()
-                 :R(8.314462618),Na(6.02214076e23), index_eye(0), index_atmo(0),P(101325), na(1),nb(0),fic_planet,per(8.85418782e-12){}
+                 :R(8.314462618),Na(6.02214076e23), index_eye(0), index_atmo(0),P(101325), na(1),nb(0), permitivity(8.85418782e-12){}
            
 //gastondale Formula for index of refraction
 void Ref_3_planets:: setindex_atmo(double& alpha, double& T)
@@ -26,20 +28,24 @@ cin >> T;
 alpha*=1e-30;
 double* nbptr= nullptr;    
  index_atmo = 
-    ((Na*alpha*P) /(2*per*R*T)) + 1; }
+    ((Na*alpha*P) /(2*R*T)) + 1; }
 //get index of refraction
  double Ref_3_planets::getindex_atmo() const{
     double nb = index_atmo;
     return nb;
  }
 
+ //global theta variables
+
  //SNELLS LAW for theta values!
- double Ref_3_planets::snellslaw(double& t_a, double& t_b) const{
+ double& Ref_3_planets::snellslaw() const{
+    double t_a,t_b;
     double r,d;
     double nb = getindex_atmo();
-    double theta;
-    double *tptr= &theta;
-    
+    double tha;
+    double thb;
+    double *ta = &tha;
+    double *tb =&thb;
     cout<<"----------Press 1  for THETA_A----------"<< endl
         <<"----------Press 2  for THETA_B----------"<< endl
         <<"------------Press 3 to exit-------------"<<endl;
@@ -52,30 +58,34 @@ double* nbptr= nullptr;
     if (key==1){  
     cout <<"---We will find theta_a for you----"<<endl
          << "Enter Angle for theta b: " << endl;
-    cin >> r;
-     *tptr = degtorad(r);
-     t_a = asin(nb * sin(*tptr) / na);
-
+    cin >> d;
+      tha = degtorad(d);
+     t_a = asin(nb * sin(tha) / na);
+     
     cout << "nb value: " << nb <<endl
-    << "theta in rads " << *tptr <<endl
+    << "theta in rads " << tha <<endl
     <<"Value for na " << na<< endl;
-    cout << "theta_a is " << t_a<< endl;
+    cout << "theta_a is " << radtodeg(t_a)<< endl;
     }  
     
     if(key==2){
     cout <<"---We will find theta_b for you----"<<endl
          << "Enter Angle for theta a: "<<endl;
-    cin >> r;
-    *tptr= degtorad(r);
-    t_b = asin(na*sin(*tptr)/nb);
+    cin >> d;
+    thb= degtorad(d);
+    t_b = asin(na*sin(thb)/nb);
     cout << "nb value: " << nb
-         << " pointer: " << *tptr 
+         << " theta in rads: " << thb
          << " na vales is: "<< na << endl;
-        cout<<"theta_b is: "<< t_b<<endl;
+        cout<<"theta_b is: "<< radtodeg(t_b)<<endl;
      
    }
-   
-   
+  
+   bool newkey;
+   newkey= 3;
+   if (newkey==true){
+     cout << "Iam alive" <<endl;
+   }
 }
  
 cout<<endl;
@@ -99,7 +109,7 @@ cout << "Your index of refraction is: " << endl
      <<"your value for Temperature is: " << t << endl
      << "your index of refration is "<< fixed <<setprecision(8)<<thval.getindex_atmo()<< endl;
 string str;
-str= thval.snellslaw(ta,tb);
+str= thval.snellslaw();
 cout<< str;
 }
 

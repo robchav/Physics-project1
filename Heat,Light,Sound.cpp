@@ -23,4 +23,4 @@ void BaseClass::runAllCalculations() { //memeber function runs for loop from ptr
         }
     }
 
-    //https://www.sciencedirect.com/science/article/abs/pii/S0010218019305759   for refractive index
+   

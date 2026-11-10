@@ -4,15 +4,12 @@
 #include <string>
 using namespace std;
 
-
-
 class BaseClass{
 private:
 vector<BaseClass*> light;
 vector<string> sound;
 vector<string> heat;
 const double Pi;
-
 
 public:
 BaseClass();
