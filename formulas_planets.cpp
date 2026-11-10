@@ -54,38 +54,47 @@ double* nbptr= nullptr;
     while (key!=3){
     
     cin >> key;
-    //should be a way to make these formulas dynamic
+    /*should be a way to make these formulas dynamic
     if (key==1){  
     cout <<"---We will find theta_a for you----"<<endl
          << "Enter Angle for theta b: " << endl;
     cin >> d;
-      tha = degtorad(d);
-     t_a = asin(nb * sin(tha) / na);
+      
      
     cout << "nb value: " << nb <<endl
     << "theta in rads " << tha <<endl
     <<"Value for na " << na<< endl;
     cout << "theta_a is " << radtodeg(t_a)<< endl;
     }  
-    
-    if(key==2){
+    */
+
+    if(key==1){
+     
     cout <<"---We will find theta_b for you----"<<endl
          << "Enter Angle for theta a: "<<endl;
     cin >> d;
-    thb= degtorad(d);
-    t_b = asin(na*sin(thb)/nb);
-    cout << "nb value: " << nb
-         << " theta in rads: " << thb
+    *ta = degtorad(d);
+    cout << *ta << endl;
+    t_a = asin(nb * sin(*ta) / na);
+    *tb= degtorad(d);
+    t_b = asin(na*sin(*tb)/nb);
+    cout << "nb value: " << nb << endl
+         << "theta b in rads: " << thb <<endl
+         <<"theta a in rads" << tha << endl
          << " na vales is: "<< na << endl;
         cout<<"theta_b is: "<< radtodeg(t_b)<<endl;
+        radtodeg(t_a);
      
-   }
+        cout << "Tha change in angle in radians is: " <<endl;
+          double long deltath = *tb - *ta;
+          cout << fixed << setprecision(10) <<deltath;
+     }
   
-   bool newkey;
+   /*bool newkey;
    newkey= 3;
    if (newkey==true){
      cout << "Iam alive" <<endl;
-   }
+   }*/
 }
  
 cout<<endl;
@@ -108,9 +117,8 @@ cout << "Your index of refraction is: " << endl
      << "Your value for polarizability volume is: " << pol << " and"<< endl
      <<"your value for Temperature is: " << t << endl
      << "your index of refration is "<< fixed <<setprecision(8)<<thval.getindex_atmo()<< endl;
-string str;
-str= thval.snellslaw();
-cout<< str;
+thval.snellslaw();
+
 }
 
 //copy formulas to compare Different elements: As proof, He has almost same index of refraction 1.025 index of refraction do to the loss of kinetic energy do to cold temps(more than water).

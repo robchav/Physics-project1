@@ -17,4 +17,6 @@ Ref_3_planets p1; //object of sublcalss created
 p1.registernewplanet(&p1);     //object calling of new planet from base class vector
 p1.runAllCalculations();       //object p1 calling for loop
 
+
+
     return 0;}

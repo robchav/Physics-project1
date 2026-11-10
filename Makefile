@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g -MMD
 
 # 1. YOUR EXACT EXECUTABLE NAME
-TARGET = hls_main.exe
+TARGET = hls_main.exe 
 
 # 2. YOUR EXACT C++ SOURCE FILES (separated by spaces)
 SRCS = hls_main.cpp formulas_planets.cpp Heat,Light,Sound.cpp
