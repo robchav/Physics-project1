@@ -12,8 +12,16 @@
 using namespace std;
 
  Ref_3_planets::Ref_3_planets()
-                 :R(8.314462618),Na(6.02214076e23), index_eye(0), index_atmo(0),P(101325), na(1),nb(0), permitivity(8.85418782e-12){}
-           
+                 :Na(6.02214076e23),R(8.314462618), index_eye(0), index_atmo(0),P(101325), na(1),nb(0), permitivity(8.85418782e-12),angleapprox(0){
+ distances.push_back(91691000);
+ distances.push_back(41400000);
+ distances.push_back(78340000);
+ distances.push_back(628730000);
+ distances.push_back(1275000000);
+ distances.push_back(2723950000);
+ distances.push_back(4351400000) ;
+ 
+                 }
 //gastondale Formula for index of refraction
 void Ref_3_planets:: setindex_atmo(double& alpha, double& T)
 {
@@ -25,11 +33,11 @@ cin >> alpha;
 cout << "Enter Temperature: ";
 cin >> T;
 
-alpha*=1e-30;
-double* nbptr= nullptr;    
+alpha*=1e-30; 
  index_atmo = 
     ((Na*alpha*P) /(2*R*T)) + 1; }
-//get index of refraction
+
+    //get index of refraction
  double Ref_3_planets::getindex_atmo() const{
     double nb = index_atmo;
     return nb;
@@ -38,68 +46,54 @@ double* nbptr= nullptr;
  //global theta variables
 
  //SNELLS LAW for theta values!
- double& Ref_3_planets::snellslaw() const{
-    double t_a,t_b;
-    double r,d;
+ void Ref_3_planets::snellslaw(double& tha, double& thb){
+    double t_b;
+    double d;
     double nb = getindex_atmo();
-    double tha;
-    double thb;
-    double *ta = &tha;
-    double *tb =&thb;
+    double result;
+    
     cout<<"----------Press 1  for THETA_A----------"<< endl
         <<"----------Press 2  for THETA_B----------"<< endl
         <<"------------Press 3 to exit-------------"<<endl;
-    int key;
     
-    while (key!=3){
-    
-    cin >> key;
-    /*should be a way to make these formulas dynamic
-    if (key==1){  
-    cout <<"---We will find theta_a for you----"<<endl
-         << "Enter Angle for theta b: " << endl;
-    cin >> d;
-      
-     
-    cout << "nb value: " << nb <<endl
-    << "theta in rads " << tha <<endl
-    <<"Value for na " << na<< endl;
-    cout << "theta_a is " << radtodeg(t_a)<< endl;
-    }  
-    */
-
-    if(key==1){
-     
     cout <<"---We will find theta_b for you----"<<endl
          << "Enter Angle for theta a: "<<endl;
     cin >> d;
-    *ta = degtorad(d);
-    cout << *ta << endl;
-    t_a = asin(nb * sin(*ta) / na);
-    *tb= degtorad(d);
-    t_b = asin(na*sin(*tb)/nb);
+    tha = degtorad(d);
+    t_b = asin(na*sin(tha)/nb);
+    thb = t_b;
     cout << "nb value: " << nb << endl
-         << "theta b in rads: " << thb <<endl
-         <<"theta a in rads" << tha << endl
-         << " na vales is: "<< na << endl;
-        cout<<"theta_b is: "<< radtodeg(t_b)<<endl;
-        radtodeg(t_a);
-     
-        cout << "Tha change in angle in radians is: " <<endl;
-          double long deltath = *tb - *ta;
-          cout << fixed << setprecision(10) <<deltath;
+         <<"theta a in rads is: " << tha << endl
+        << "theta b in rads is: " << thb << endl
+         << "na vales is: "<< na << endl;
+        cout<<"theta_b is: "<<radtodeg(t_b)<<endl;
+        result = tha - thb;
+        angleapprox = result;
+          
      }
-  
-   /*bool newkey;
-   newkey= 3;
-   if (newkey==true){
-     cout << "Iam alive" <<endl;
-   }*/
-}
- 
-cout<<endl;
 
-    }
+
+void Ref_3_planets::changeindistance(){
+
+cout << "The change in angle in radians is: " <<endl;
+cout << fixed << setprecision(15) <<angleapprox << endl;
+int choice;
+cout<< "Choose 1. for Mercury distance" << endl
+    << "Choose 2. for Venus distance" << endl
+    << "Choose 3. for Mars distance" << endl
+    << "Choose 4. for Jupiter distance" << endl
+    << "Choose 5. for Saturn distance" << endl
+    << "Choose 6. for Uranus distance" << endl
+    << "Choose 7. for Neptune distance" << endl;
+    cin >> choice;
+    int d = distances[choice - 1];
+cout << endl;
+double newdistance = tan(angleapprox)*d;
+
+  cout <<"Your current planet appears to be " <<  newdistance << " km" << endl 
+       << " of its current position."<<endl;
+}
+
 
 void Ref_3_planets::lightitems(){
 double pol = 0.0;
@@ -108,17 +102,14 @@ double ta=0;
 double tb=0;
 
 //Ref_3_planets n_b;
-Ref_3_planets thval;
-
-
-
-thval.setindex_atmo(pol,t);
+Ref_3_planets planetillusion;
+planetillusion.setindex_atmo(pol,t);
 cout << "Your index of refraction is: " << endl
      << "Your value for polarizability volume is: " << pol << " and"<< endl
      <<"your value for Temperature is: " << t << endl
-     << "your index of refration is "<< fixed <<setprecision(8)<<thval.getindex_atmo()<< endl;
-thval.snellslaw();
-
+     << "your index of refration is "<< fixed <<setprecision(8)<<planetillusion.getindex_atmo()<< endl;
+planetillusion.snellslaw(ta,tb);
+planetillusion.changeindistance();
 }
 
 //copy formulas to compare Different elements: As proof, He has almost same index of refraction 1.025 index of refraction do to the loss of kinetic energy do to cold temps(more than water).
